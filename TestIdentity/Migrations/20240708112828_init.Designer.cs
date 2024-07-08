@@ -12,8 +12,8 @@ using TestIdentity.Data;
 namespace TestIdentity.Migrations
 {
     [DbContext(typeof(TestIdentityDbContext))]
-    [Migration("20240708094843_fix")]
-    partial class fix
+    [Migration("20240708112828_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,9 +283,6 @@ namespace TestIdentity.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyID")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "CompanyId");

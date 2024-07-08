@@ -5,7 +5,7 @@ namespace TestIdentity.Models
     public class UserCompany
     {
         public int CompanyId { get; set; }
-        [ForeignKey("CompanyID")]
+        [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]

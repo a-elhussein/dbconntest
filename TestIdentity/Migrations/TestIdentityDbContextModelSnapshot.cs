@@ -282,9 +282,6 @@ namespace TestIdentity.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompanyID")
-                        .HasColumnType("int");
-
                     b.HasKey("UserId", "CompanyId");
 
                     b.HasIndex("CompanyId");
