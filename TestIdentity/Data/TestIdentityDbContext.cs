@@ -76,6 +76,21 @@ namespace TestIdentity.Data
 
             builder.Entity<IdentityRole>().HasData(roles);
 
+            var companies = new List<Company>
+            {
+                new Company
+                {
+                    Id = 1,
+                    CompanyName = "Company1",
+                },
+                 new Company
+                {
+                    Id = 2,
+                    CompanyName = "Company2",
+                },
+            };
+            builder.Entity<Company>().HasData(companies);
+
 
         }
     }

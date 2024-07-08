@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestIdentity.Data;
 
@@ -11,9 +12,11 @@ using TestIdentity.Data;
 namespace TestIdentity.Migrations
 {
     [DbContext(typeof(TestIdentityDbContext))]
-    partial class TestIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240708114135_seeded2")]
+    partial class seeded2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,18 +275,6 @@ namespace TestIdentity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CompanyName = "Company1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CompanyName = "Company2"
-                        });
                 });
 
             modelBuilder.Entity("TestIdentity.Models.UserCompany", b =>

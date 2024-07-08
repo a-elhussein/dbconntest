@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestIdentity.Data;
 
@@ -11,9 +12,11 @@ using TestIdentity.Data;
 namespace TestIdentity.Migrations
 {
     [DbContext(typeof(TestIdentityDbContext))]
-    partial class TestIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240708114257_seeded2bugfix")]
+    partial class seeded2bugfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
