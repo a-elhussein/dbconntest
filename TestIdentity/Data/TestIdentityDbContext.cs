@@ -19,7 +19,7 @@ namespace TestIdentity.Data
         {
             base.OnModelCreating(builder);
 
-            // Configure relationships if needed
+            // Configure relationships 
             builder.Entity<UserCompany>()
                 .HasKey(uc => new { uc.UserId, uc.CompanyId });
 

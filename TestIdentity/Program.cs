@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TestIdentity.Data;
+using TestIdentity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TestIdentityDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("TestIdentityConnectionString")));
 
-
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        .AddEntityFrameworkStores<TestIdentityDbContext>()
+        .AddDefaultTokenProviders();
 
 var app = builder.Build();
 
