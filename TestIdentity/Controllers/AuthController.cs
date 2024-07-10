@@ -54,6 +54,7 @@ namespace TestIdentity.Controllers
                         {
                             UserId = user.Id,
                             CompanyId = company.Id
+
                         };
                         _context.UserCompanies.Add(userCompany);
                     }
