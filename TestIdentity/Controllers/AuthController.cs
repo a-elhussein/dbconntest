@@ -26,6 +26,16 @@ namespace TestIdentity.Controllers
             _context = context;
         }
 
+        //GET: /api/Auth/Get All
+        [HttpGet]
+        [Route("GetALL")]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _context.Users.ToListAsync();
+
+            return Ok(users);
+        }
+
         // POST: /api/Auth/register
         [HttpPost]
         [Route("(Register)")]
@@ -53,7 +63,9 @@ namespace TestIdentity.Controllers
                         var userCompany = new UserCompany
                         {
                             UserId = user.Id,
-                            CompanyId = company.Id
+                            CompanyId = company.Id,
+                            IsActive = true
+
 
                         };
                         _context.UserCompanies.Add(userCompany);
@@ -82,20 +94,71 @@ namespace TestIdentity.Controllers
         [HttpPost]
         [Route("SignIn")]
 
-        public async Task<IActionResult> Signin([FromBody] SigninRequestDto signinRequestDto) 
+        public async Task<IActionResult> Signin([FromBody] SigninRequestDto signinRequestDto)
         {
             var user = await _userManager.FindByNameAsync(signinRequestDto.UserName);
-            if (user != null) 
+            if (user != null)
             {
                 var checkPasswordResult = await _userManager.CheckPasswordAsync(user, signinRequestDto.Password);
 
-                if (checkPasswordResult) 
+                if (checkPasswordResult)
                 {
                     return Ok("UserName and Password is correct");
                 }
             }
 
             return BadRequest();
+        }
+
+
+        //PUT: api/auth/{id}
+        [HttpPut]
+        [Route("EditUser/{id}")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
+        {
+            var userDomainModel = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (userDomainModel == null)
+            {
+                return NotFound();
+            }
+            //DTO to main
+            userDomainModel.Email = updateUserRequestDto.Email;
+            userDomainModel.UserName = updateUserRequestDto.UserName;
+            userDomainModel.FullName = updateUserRequestDto.FullName;
+
+            //Save change
+
+            await _context.SaveChangesAsync();
+
+            return Ok(userDomainModel);
+
+        }
+
+        [HttpPut]
+        [Route("EditPassword/{id}")]
+        public async Task<IActionResult> UpdatePassword([FromRoute] string id, [FromBody] UpdatePasswordDto updatePasswordDto)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Verify the current password
+            var passwordCheck = await _userManager.CheckPasswordAsync(user, updatePasswordDto.CurrentPassword);
+            if (!passwordCheck)
+            {
+                return BadRequest("Current password is incorrect.");
+            }
+
+            // Change the password
+            var result = await _userManager.ChangePasswordAsync(user, updatePasswordDto.CurrentPassword, updatePasswordDto.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok("Password has been changed successfully.");
         }
     }
 }

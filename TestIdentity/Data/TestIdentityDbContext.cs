@@ -33,22 +33,31 @@ namespace TestIdentity.Data
                 .WithMany(c => c.UserCompanies)
                 .HasForeignKey(uc => uc.CompanyId);
 
+            builder.Entity<UserCompany>()
+               .Property(uc => uc.IsActive)
+               .HasDefaultValue(true);
 
-            var managerId = "b4c0037d - 740b - 460d - ae4e - ada97e8d4219";
+            builder.Entity<ApplicationUser>()
+                .Property(au => au.MustResetPassword)
+                .HasDefaultValue(true);
+
+
+
             var userId = "8ed708a7-1c52-4d56-ab0c-57bad508b0b8";
             var deliveryId = "a8497c56-d656-4164-ba8a-fb69e99a35db";
             var financeId = "e2a289d0-3645-4cbb-8675-8a21847c83cc";
+            var adminId = "26ac47fd-3a69-4894-9b95-1d7cf6550327";
 
 
 
             var roles = new List<IdentityRole> 
             {
-                new IdentityRole
+                 new IdentityRole
                 {
-                    Id = managerId,
-                    ConcurrencyStamp = managerId,
-                    Name = "Manager",
-                    NormalizedName = "Manager".ToUpper()
+                    Id = adminId,
+                    ConcurrencyStamp = adminId,
+                    Name = "Admin",
+                    NormalizedName = "Admin".ToUpper()
                 },
                 new IdentityRole
                 {

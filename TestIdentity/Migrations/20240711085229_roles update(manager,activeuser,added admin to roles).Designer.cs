@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestIdentity.Data;
 
@@ -11,9 +12,11 @@ using TestIdentity.Data;
 namespace TestIdentity.Migrations
 {
     [DbContext(typeof(TestIdentityDbContext))]
-    partial class TestIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240711085229_roles update(manager,activeuser,added admin to roles)")]
+    partial class rolesupdatemanageractiveuseraddedadmintoroles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,9 +218,7 @@ namespace TestIdentity.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("MustResetPassword")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -297,9 +298,7 @@ namespace TestIdentity.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsManager")
                         .HasColumnType("bit");
